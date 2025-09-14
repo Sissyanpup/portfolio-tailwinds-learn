@@ -33,24 +33,13 @@ jobs:
       - name: Build Tailwind
         run: npm run build
 
-      - name: Ensure dist folder exists
-        run: mkdir -p dist
-
-      - name: Copy index.html to dist
-        run: cp index.html dist/index.html
-
       - name: Upload artifact
         uses: actions/upload-pages-artifact@v3
         with:
-          path: dist
-
-  deploy:
-    needs: build
-    runs-on: ubuntu-latest
-    environment:
-      name: github-pages
-      url: ${{ steps.deployment.outputs.page_url }}
-    steps:
-      - name: Deploy to GitHub Pages
-        id: deployment
-        uses: actions/deploy-pages@v4
+          path: |
+            .
+          exclude: |
+            **/node_modules/**
+            package*.json
+            tailwind.config.js
+            .github/
