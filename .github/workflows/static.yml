@@ -33,7 +33,9 @@ jobs:
       - name: Build Tailwind
         run: npm run build
 
-      # Tanpa mkdir: kita cukup salin index.html ke dalam dist
+      - name: Ensure dist folder exists
+        run: mkdir -p dist
+
       - name: Copy index.html to dist
         run: cp index.html dist/index.html
 
